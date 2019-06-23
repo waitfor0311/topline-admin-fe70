@@ -27,6 +27,7 @@
 </template>
 <script>
 import axios from 'axios'
+import '@/vendor/gt'
 export default {
   name: 'AppLogin',
   data () {
