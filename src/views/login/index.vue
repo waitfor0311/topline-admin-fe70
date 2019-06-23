@@ -45,7 +45,7 @@ export default {
       const { mobile } = this.form
       axios({
         method: 'GET',
-        url: `http://ttapi.research.itcast.cn/mp/v1_0/captchas/:mobile/${mobile}`
+        url: `http://ttapi.research.itcast.cn/mp/v1_0/captchas/${mobile}`
       }).then(res => {
         console.log(res.data)
       })
