@@ -19,7 +19,7 @@
           </el-col>
         </el-form-item>
         <el-form-item>
-          <el-button class="btn-login" type="primary" @click="onSubmit">登录</el-button>
+          <el-button class="btn-login" type="primary" @click="handleLogin">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -39,8 +39,25 @@ export default {
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
+    handleLogin () {
+      // const { mobile, code } = this.form
+      axios({
+        method: 'POST',
+        url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
+        data: this.form
+      }).then(res => {
+        // console.log(res.data)
+        this.$message({
+          message: '恭喜成功',
+          type: 'success'
+        })
+        this.$router.push({
+          name: 'home'
+        })
+      })
+        .catch((e) => {
+          this.$message.error('登陆失败，手机号或验证码错误')
+        })
     },
     handleSendCode () {
       const { mobile } = this.form
@@ -61,7 +78,21 @@ export default {
             captchaObj.verify() // 弹出验证内容框
           }).onSuccess(function () {
           // your code
-            console.log(captchaObj.getValidate())
+            const {
+              geetest_challenge: challenge,
+              geetest_seccode: seccode,
+              geetest_validate: validate } = captchaObj.getValidate()
+            axios({
+              method: 'GET',
+              url: `http://ttapi.research.itcast.cn/mp/v1_0/sms/codes/${mobile}`,
+              params: {
+                challenge,
+                validate,
+                seccode
+              }
+            }).then(res => {
+              console.log(res.data)
+            })
           }).onError(function () {
           // your code
           })
