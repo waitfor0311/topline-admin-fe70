@@ -1,13 +1,30 @@
 <template>
-  <div>
-    <p>AppHeader Component</p>
-  </div>
+  <el-row :gutter="20">
+    <el-col :span="10">江苏传智播客教育科技股份有限公司</el-col>
+    <el-col :span="5" :offset="5">123</el-col>
+    <el-dropdown>
+        <img width="30" :src="userInfo.photo">
+  <span class="el-dropdown-link">
+   {{ userInfo.name }}<i class="el-icon-arrow-down el-icon--right"></i>
+  </span>
+  <el-dropdown-menu slot="dropdown">
+    <el-dropdown-item>用户设置</el-dropdown-item>
+    <el-dropdown-item>退出</el-dropdown-item>
+  </el-dropdown-menu>
+</el-dropdown>
+  </el-row>
 </template>
 <script>
 export default {
   name: 'AppHeader',
   data () {
-    return {}
+    return {
+      userInfo: {}
+    }
+  },
+  created () {
+    this.userInfo = JSON.parse(window.localStorage.getItem('user-info'))
+    console.log(this.userInfo)
   }
 }
 </script>

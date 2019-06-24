@@ -14,7 +14,10 @@
         <AppHeader/>
     </el-header>
     <!-- 内容 -->
-    <el-main>Main</el-main>
+    <el-main>
+        <!-- Home ,发布文章，文章列表，品论 -->
+        <router-view/>
+    </el-main>
   </el-container>
 </el-container>
 </template>
